@@ -24,10 +24,8 @@ headers = classes.css("th").collect { |t| t.text.downcase.gsub(" ", "_") }
 rows = []
 classes.css("tr").each do |tr|
   row = Hash.new
-  i = 0
-  tr.css("td").each do |td|
+  tr.css("td").each_with_index do |td, i|
     row[headers[i].to_sym] = td.text
-    i += 1
   end
   rows << row
 end
@@ -42,7 +40,7 @@ rows.each do |row|
   course_elems = row[:course].split(" ")
   # labs have last element as L01, L02... while lectures
   # are LE1 LE2 or just 001 003 004 etc
-  if course_elems.last.match /L\d{2}/
+  if course_elems.last.match(/L\d{2}/)
     suffix = " lab"
   end
   event_title = "#{course_elems.first} #{course_elems[1][0..-3]}#{suffix}"
