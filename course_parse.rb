@@ -31,7 +31,7 @@ classes.css("tr").each do |tr|
 end
 
 # prune out any garbage rows
-rows.reject! { |row| row[:crn].nil? or row[:crn].blank? }
+rows.reject! { |row| row[:crn].nil? || row[:crn].blank? }
 
 ap rows
 
